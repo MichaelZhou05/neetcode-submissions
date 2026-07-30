@@ -1,0 +1,30 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        hm = defaultdict(int) #Char -> num of occurances
+        maxOcc = 0
+        for n in s :
+            hm[n] += 1
+            maxOcc = max(maxOcc, hm[n])
+        
+        l=0
+        r=0
+        longest = 0
+        tempK = k
+        queue = []
+        while r < len(s) :
+            if hm[s[r]] != maxOcc:
+                queue.append(r)
+                if tempK > 0 :
+                    tempK -= 1
+                    r += 1
+                else: 
+                    longest = max(longest, r-l)
+                    l = queue.pop(0) + 1
+                    r+=1
+            else :
+                r += 1
+                longest = max(longest, r-l)
+
+
+        return longest
+        

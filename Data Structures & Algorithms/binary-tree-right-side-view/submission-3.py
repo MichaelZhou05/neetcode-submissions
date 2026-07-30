@@ -1,0 +1,17 @@
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+
+        def dfs(node, depth):
+            if not node:
+                return None
+            if depth >= len(res) :
+                res.append(-1)
+            
+            dfs(node.left, depth + 1)
+            dfs(node.right, depth + 1)
+            res[depth] = node.val
+            
+        
+        dfs(root, 0)
+        return res

@@ -1,0 +1,18 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        ret = max(nums)
+
+        lMax, lMin = 1, 1
+
+        for x in nums :
+            if x == 0 :
+                lMax, lMin = 1,1
+                continue
+            
+            lMax = max(lMax * x, lMin*x, x)
+            lMin = min(lMax * x, x)
+            ret = max(ret,lMax)
+
+        return ret
+            
+        

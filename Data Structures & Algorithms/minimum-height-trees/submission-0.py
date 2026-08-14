@@ -1,0 +1,31 @@
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        neighborsCount = [0 for _ in range(n)]
+        adjList = defaultdict(list)
+        for a,b in edges:
+            neighborsCount[a] += 1
+            neighborsCount[b] += 1
+            adjList[a].append(b)
+            adjList[b].append(a)
+        
+        que = []
+        for i,count in enumerate(neighborsCount):
+            if count == 1:
+                que.append(i)
+        visited = set()
+        while que:
+            nextLayer = set()
+            for i in range(len(que)):
+                node = que[i]
+                if node in visited: continue
+                visited.add(node)
+                for nextNode in adjList[node]:
+                    if nextNode not in visited and nextNode not in nextLayer:
+                       nextLayer.add(nextNode)
+            if len(nextLayer)<=2:
+                return list(nextLayer)
+            que = list(nextLayer)
+        
+
+
+
